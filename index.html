@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Recrutamento - DPCRP</title>
+    <style>
+        :root {
+            --police-blue: #1a237e;
+            --police-red: #d32f2f;
+            --police-gold: #ffc107;
+            --light-gray: #f5f5f5;
+            --dark-gray: #333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+        
+        /* Header */
+        .portal-header {
+            background: linear-gradient(135deg, var(--police-blue) 0%, #0d1533 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 5px solid var(--police-red);
+        }
+        
+        .badge {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1rem;
+            display: block;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+        }
+        
+        .portal-title {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .portal-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Main Navigation */
+        .main-nav {
+            background-color: var(--police-blue);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .nav-button {
+            color: white;
+            text-decoration: none;
+            padding: 1rem 1.5rem;
+            font-weight: bold;
+            transition: all 0.3s;
+            position: relative;
+            text-align: center;
+        }
+        
+        .nav-button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-button.active {
+            background-color: var(--police-red);
+        }
+        
+        .nav-button.active:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: var(--police-gold);
+        }
+        
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .welcome-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid var(--police-blue);
+        }
+        
+        .welcome-section h2 {
+            color: var(--police-blue);
+            margin-bottom: 1rem;
+        }
+        
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .info-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .card-header {
+            background-color: var(--police-blue);
+            color: white;
+            padding: 1rem;
+            font-weight: bold;
+        }
+        
+        .card-body {
+            padding: 1.5rem;
+        }
+        
+        .card-body ul {
+            list-style-position: inside;
+            margin: 1rem 0;
+        }
+        
+        .card-body li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--police-blue);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 1rem;
+        }
+        
+        .btn:hover {
+            background-color: #0d1533;
+        }
+        
+        .btn-red {
+            background-color: var(--police-red);
+        }
+        
+        .btn-red:hover {
+            background-color: #a71f1f;
+        }
+        
+        /* Footer */
+        .portal-footer {
+            background-color: var(--dark-gray);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .portal-title {
+                font-size: 2rem;
+            }
+            
+            .portal-subtitle {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+            }
+            
+            .nav-button {
+                padding: 0.8rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header class="portal-header">
+        <img src="https://iili.io/Hg0h0Ux.png" alt="Emblema DPCRP" class="badge">
+        <h1 class="portal-title">DEPARTAMENTO DE POLÍCIA DO CRYSTAL ROLEPLAY</h1>
+        <p class="portal-subtitle">Portal Oficial de Recrutamento - Junte-se à nossa equipe e sirva a comunidade com honra e integridade</p>
+    </header>
+    
+    <!-- Navegação Principal -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="#inicio" class="nav-button active">INÍCIO</a>
+            <a href="#requisitos" class="nav-button">REQUISITOS</a>
+            <a href="#processo" class="nav-button">PROCESSO</a>
+            <a href="#formulario" class="nav-button">FORMULÁRIO</a>
+            <a href="#teste" class="nav-button">TESTE</a>
+            <a href="#contactos" class="nav-button">CONTACTOS</a>
+        </div>
+    </nav>
+    
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
+        <section id="inicio" class="welcome-section">
+            <h2>BEM-VINDO AO PROCESSO DE RECRUTAMENTO</h2>
+            <p>O Departamento de Polícia do Crystal Roleplay está a recrutar novos elementos para integrar a nossa força policial. Procuramos indivíduos comprometidos com a justiça, a ordem pública e o serviço à comunidade.</p>
+            <p>Como oficial da DPCRP, você terá a oportunidade de fazer a diferença na nossa cidade, trabalhando em diversas áreas como patrulha, trânsito, investigação e operações especiais.</p>
+            <a href="#formulario" class="btn">INICIAR CANDIDATURA</a>
+        </section>
+        
+        <section id="requisitos">
+            <h2 style="color: var(--police-blue); margin-bottom: 1.5rem;">REQUISITOS PARA CANDIDATURA</h2>
+            <div class="cards-container">
+                <div class="info-card">
+                    <div class="card-header">REQUISITOS MÍNIMOS</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Idade mínima de 21 anos</li>
+                            <li>Nível de escolaridade secundário completo</li>
+                            <li>Antecedentes criminais limpos</li>
+                            <li>Boa condição física e saúde</li>
+                            <li>Disponibilidade para horários rotativos</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <div class="card-header">COMPETÊNCIAS DESEJADAS</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Boa capacidade de comunicação</li>
+                            <li>Pensamento crítico e resolução de problemas</li>
+                            <li>Capacidade de trabalhar em equipe</li>
+                            <li>Resiliência emocional</li>
+                            <li>Conhecimento das leis e regulamentos</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <div class="card-header">BENEFÍCIOS</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Formação profissional contínua</li>
+                            <li>Plano de carreira estruturado</li>
+                            <li>Equipamento e uniforme fornecido</li>
+                            <li>Seguro de saúde</li>
+                            <li>Oportunidades de especialização</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="processo" class="welcome-section">
+            <h2>PROCESSO DE RECRUTAMENTO</h2>
+            <p>O nosso processo de seleção é rigoroso e consiste em várias etapas para garantir que selecionamos os melhores candidatos:</p>
+            
+            <div style="margin: 1.5rem 0;">
+                <h3 style="color: var(--police-blue); margin: 1rem 0;">1. Candidatura Inicial</h3>
+                <p>Preenchimento do formulário online com informações pessoais, formação e experiência.</p>
+                
+                <h3 style="color: var(--police-blue); margin: 1rem 0;">2. Teste de Conhecimentos</h3>
+                <p>Prova escrita avaliando conhecimentos básicos de legislação, procedimentos policiais e ética profissional.</p>
+                
+                <h3 style="color: var(--police-blue); margin: 1rem 0;">3. Avaliação Psicológica</h3>
+                <p>Testes psicológicos para avaliar aptidão para a função policial.</p>
+                
+                <h3 style="color: var(--police-blue); margin: 1rem 0;">4. Entrevista</h3>
+                <p>Entrevista com membros do comando para avaliação de competências e motivação.</p>
+                
+                <h3 style="color: var(--police-blue); margin: 1rem 0;">5. Formação Inicial</h3>
+                <p>Curso de formação básica para novos recrutas com duração de 8 semanas.</p>
+            </div>
+            
+            <a href="#formulario" class="btn btn-red">ACESSAR FORMULÁRIO</a>
+        </section>
+        
+        <!-- Seção do Formulário -->
+        <section id="formulario" style="background-color: white; border-radius: 8px; padding: 2rem; margin: 3rem 0; box-shadow: 0 2px 15px rgba(0,0,0,0.1);">
+            <h2 style="color: var(--police-blue); margin-bottom: 1.5rem;">FORMULÁRIO DE CANDIDATURA</h2>
+            <form style="display: grid; gap: 1.5rem;">
+                <div style="display: grid; gap: 1rem;">
+                    <h3 style="color: var(--police-blue);">DADOS PESSOAIS</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                        <div>
+                            <label for="nome" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Nome Completo *</label>
+                            <input type="text" id="nome" style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 4px;" required>
+                        </div>
+                        <div>
+                            <label for="data-nascimento" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Data de Nascimento *</label>
+                            <input type="date" id="data-nascimento" style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 4px;" required>
+                        </div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                        <div>
+                            <label for="email" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Email *</label>
+                            <input type="email" id="email" style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 4px;" required>
+                        </div>
+                        <div>
+                            <label for="telefone" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Telefone *</label>
+                            <input type="tel" id="telefone" style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 4px;" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="display: grid; gap: 1rem;">
+                    <h3 style="color: var(--police-blue);">INFORMAÇÕES ADICIONAIS</h3>
+                    <div>
+                        <label for="experiencia" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Tem experiência anterior em forças policiais? *</label>
+                        <div style="display: flex; gap: 1rem;">
+                            <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                <input type="radio" name="experiencia" value="sim" required> Sim
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                <input type="radio" name="experiencia" value="nao"> Não
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="motivacao" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Motivação para ingressar na DPCRP *</label>
+                        <textarea id="motivacao" rows="5" style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 4px;" required></textarea>
+                    </div>
+                </div>
+                
+                <div style="margin: 1.5rem 0;">
+                    <label style="display: flex; gap: 0.5rem;">
+                        <input type="checkbox" required>
+                        Declaro que todas as informações fornecidas são verdadeiras e estou ciente que falsas declarações podem resultar na desqualificação da minha candidatura.
+                    </label>
+                </div>
+                
+                <button type="submit" class="btn" style="justify-self: start;">ENVIAR CANDIDATURA</button>
+            </form>
+        </section>
+        
+        <!-- Seção do Teste -->
+        <section id="teste" style="background-color: white; border-radius: 8px; padding: 2rem; margin: 3rem 0; box-shadow: 0 2px 15px rgba(0,0,0,0.1);">
+            <h2 style="color: var(--police-blue); margin-bottom: 1.5rem;">TESTE DE ADMISSÃO</h2>
+            <p>Esta seção estará disponível após o envio do formulário de candidatura. Os candidatos aprovados na triagem inicial receberão acesso ao teste de admissão completo.</p>
+            <p>O teste avalia conhecimentos sobre:</p>
+            <ul style="margin: 1rem 0 1rem 2rem;">
+                <li>Legislação básica</li>
+                <li>Procedimentos policiais</li>
+                <li>Ética profissional</li>
+                <li>Resolução de situações</li>
+            </ul>
+            <div style="background-color: var(--light-gray); padding: 1.5rem; border-left: 4px solid var(--police-blue); margin: 1.5rem 0;">
+                <p><strong>Nota:</strong> O teste deve ser realizado em um único acesso e tem duração máxima de 60 minutos. Recomendamos que se prepare antecipadamente.</p>
+            </div>
+        </section>
+        
+        <!-- Seção de Contactos -->
+        <section id="contactos" style="background-color: white; border-radius: 8px; padding: 2rem; margin: 3rem 0; box-shadow: 0 2px 15px rgba(0,0,0,0.1);">
+            <h2 style="color: var(--police-blue); margin-bottom: 1.5rem;">CONTACTOS</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div>
+                    <h3 style="color: var(--police-blue); margin-bottom: 1rem;">DIVISÃO DE RECURSOS HUMANOS</h3>
+                    <p><strong>Email:</strong> recrutamento@dcprp.crystal</p>
+                    <p><strong>Telefone:</strong> 211 234 567</p>
+                    <p><strong>Horário:</strong> Segunda a Sexta, 09h00 - 17h00</p>
+                </div>
+                <div>
+                    <h3 style="color: var(--police-blue); margin-bottom: 1rem;">LOCALIZAÇÃO</h3>
+                    <p>Quartel General da DPCRP</p>
+                    <p>Avenida da Justiça, 123</p>
+                    <p>Crystal City</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Rodapé -->
+    <footer class="portal-footer">
+        <img src="https://iili.io/Hg0h0Ux.png" alt="Emblema DPCRP" style="height: 80px; margin-bottom: 1rem; filter: brightness(0) invert(1); opacity: 0.8;">
+        <p>Departamento de Polícia do Crystal Roleplay</p>
+        <div class="footer-links">
+            <a href="#">Política de Privacidade</a>
+            <a href="#">Termos de Serviço</a>
+            <a href="#">Perguntas Frequentes</a>
+            <a href="#">Acessibilidade</a>
+        </div>
+        <p style="margin-top: 1.5rem; opacity: 0.8;">© 2023 DPCRP - Todos os direitos reservados</p>
+    </footer>
+
+    <script>
+        // Navegação suave
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Atualizar navegação ativa
+                document.querySelectorAll('.nav-button').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Rolagem suave
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Manter navegação ativa ao rolar
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section[id]');
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                if (pageYOffset >= sectionTop) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            document.querySelectorAll('.nav-button').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('href') === `#${currentSection}`) {
+                    btn.classList.add('active');
+                }
+            });
+        });
+        
+        // Validação do formulário
+        const form = document.querySelector('form');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Validação simples
+                let isValid = true;
+                const requiredFields = form.querySelectorAll('[required]');
+                
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        field.style.borderColor = 'var(--police-red)';
+                        isValid = false;
+                    } else {
+                        field.style.borderColor = '#ddd';
+                    }
+                });
+                
+                if (isValid) {
+                    alert('Candidatura enviada com sucesso! Entraremos em contacto em breve.');
+                    form.reset();
+                    window.scrollTo({
+                        top: document.querySelector('#teste').offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                } else {
+                    alert('Por favor, preencha todos os campos obrigatórios.');
+                }
+            });
+        }
+        
+        // Proteção contra cópia
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            alert('A cópia de conteúdo deste portal não é permitida.');
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            // Bloquear Ctrl+C, Ctrl+X, Print Screen, etc.
+            if ((e.ctrlKey && (e.key === 'c' || e.key === 'x' || e.key === 'u')) || e.key === 'PrintScreen') {
+                e.preventDefault();
+                alert('Operação não permitida neste portal.');
+            }
+        });
+    </script>
+</body>
+</html>
